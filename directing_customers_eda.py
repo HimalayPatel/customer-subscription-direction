@@ -15,33 +15,33 @@ customer_data2=customer_data.drop(columns=['user','screen_list','enrolled_date',
 #print(customer_data2.describe())
 
 # Histogram
-# plt.suptitle('Histograms of Numerical Columns',fontsize=20)
-# for i in range(1,customer_data2.shape[1]+1):
-#     plt.subplot(3,3,i)
-#     axes=plt.gca()
-#     axes.set_title(customer_data2.columns.values[i-1])
-#     vals=np.size(customer_data2.iloc[:,i-1].unique())
-#     plt.hist(customer_data2.iloc[:,i-1],bins=vals,color='#FF5500')
-# plt.show()
+plt.suptitle('Histograms of Numerical Columns',fontsize=20)
+for i in range(1,customer_data2.shape[1]+1):
+    plt.subplot(3,3,i)
+    axes=plt.gca()
+    axes.set_title(customer_data2.columns.values[i-1])
+    vals=np.size(customer_data2.iloc[:,i-1].unique())
+    plt.hist(customer_data2.iloc[:,i-1],bins=vals,color='#FF5500')
+plt.show()
 
 # Correlation with Response Variable
-# customer_data2.corrwith(customer_data.enrolled).plot.bar(figsize=(15,10),
-#                         title='Correlation with Response Variable',
-#                         fontsize=10, rot=45,
-#                         grid=True)
-# plt.show()
+customer_data2.corrwith(customer_data.enrolled).plot.bar(figsize=(15,10),
+                        title='Correlation with Response Variable',
+                        fontsize=10, rot=45,
+                        grid=True)
+plt.show()
 
 # Correlation matrix
-# sns.set(style="white", font_scale=2)
-# corr = customer_data2.corr()
-# mask = np.zeros_like(corr, dtype=np.bool)
-# mask[np.triu_indices_from(mask)] = True
-# f, ax = plt.subplots(figsize=(18, 15))
-# f.suptitle("Correlation Matrix", fontsize = 40)
-# cmap = sns.diverging_palette(220, 10, as_cmap=True)
-# sns.heatmap(corr, mask=mask, cmap=cmap, vmax=0.3, center=0,
-#             square=True, linewidths=0.5, cbar_kws={"shrink": 0.5})
-# plt.show()
+sns.set(style="white", font_scale=2)
+corr = customer_data2.corr()
+mask = np.zeros_like(corr, dtype=np.bool)
+mask[np.triu_indices_from(mask)] = True
+f, ax = plt.subplots(figsize=(18, 15))
+f.suptitle("Correlation Matrix", fontsize = 40)
+cmap = sns.diverging_palette(220, 10, as_cmap=True)
+sns.heatmap(corr, mask=mask, cmap=cmap, vmax=0.3, center=0,
+            square=True, linewidths=0.5, cbar_kws={"shrink": 0.5})
+plt.show()
 
 # Feature Engineering- Response Variable
 #print(customer_data.dtypes)
@@ -52,16 +52,16 @@ customer_data["enrolled_date"] = [parser.parse(row_date) if isinstance(row_date,
 # Selecting Time For Response
 customer_data["difference"] = (customer_data.enrolled_date-customer_data.first_open).astype('timedelta64[h]')
 # response_hist = plt.hist(customer_data["difference"].dropna(), color='#3F5D7D')
-# plt.title('Distribution of Time-Since-Screen-Reached')
-# plt.show()
+plt.title('Distribution of Time-Since-Screen-Reached')
+plt.show()
 
-# plt.hist(customer_data["difference"].dropna(), color='#3F5D7D', range = [0, 100])
-# plt.title('Distribution of Time-Since-Screen-Reached')
-# plt.show()
+plt.hist(customer_data["difference"].dropna(), color='#3F5D7D', range = [0, 100])
+plt.title('Distribution of Time-Since-Screen-Reached')
+plt.show()
 
-# plt.hist(customer_data["difference"].dropna(), color='#3F5D7D', range = [0, 48])
-# plt.title('Distribution of Time-Since-Screen-Reached')
-# plt.show()
+plt.hist(customer_data["difference"].dropna(), color='#3F5D7D', range = [0, 48])
+plt.title('Distribution of Time-Since-Screen-Reached')
+plt.show()
 
 customer_data.loc[customer_data.difference > 48, 'enrolled'] = 0
 customer_data = customer_data.drop(columns=['enrolled_date', 'difference', 'first_open'])
